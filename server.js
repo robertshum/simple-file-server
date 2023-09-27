@@ -35,10 +35,7 @@ server.on("connection", (client) => {
 
 const readFile = (data, client) => {
 
-  const path = FILE_LOCATION + data;
-  checkPath();
-
-  function checkPath() {
+  const checkPath = () => {
     fs.access(path, (err) => {
       if (!err) {
         console.log(`The path "${path}" is valid.`);
@@ -57,9 +54,9 @@ const readFile = (data, client) => {
       console.error(`An error occurred: ${err.message}`);
       return;
     });
-  }
+  };
 
-  function getFile() {
+  const getFile = () => {
     // Read the contents of the file
     fs.readFile(path, 'utf8', (err, data) => {
       if (err) {
@@ -73,5 +70,8 @@ const readFile = (data, client) => {
       //send it back
       client.write(data);
     });
-  }
+  };
+
+  const path = FILE_LOCATION + data;
+  checkPath();
 };
